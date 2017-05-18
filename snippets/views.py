@@ -6,7 +6,7 @@ from snippets.serializers import SnippetSerializer
 
 
 @api_view(['GET', 'POST'])
-def snippet_list(request):
+def snippet_list(request, format=None):
     """
     List all code snippets or create a new snippet.
     """
@@ -24,10 +24,11 @@ def snippet_list(request):
 
 
 @api_view(['GET', 'PUT', 'DELETE'])
-def snippet_detail(request, pk):
+def snippet_detail(request, pk, format=None):
     """
     Retrieve, update, or delete a code snippet.
     """
+    # First try to get the Snippet with the corresponding pk, and if it doesn't exist send a 404 response
     try:
         snippet = Snippet.objects.get(pk=pk)
     except Snippet.DoesNotExist:
